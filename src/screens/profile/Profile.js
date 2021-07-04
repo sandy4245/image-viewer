@@ -168,7 +168,7 @@ class Profile extends Component {
                         <Grid container spacing={3} justify="flex-start">
                             <Grid item xs={2} />
                             <Grid item xs={2} style={{ paddingTop: 25 }}>
-                                <Avatar alt='profile_pic' id="dp" variant="circle" src={this.state.url} style={{ marginTop: 10 }} />
+                                <Avatar alt='profile_pic' id="dp" variant="circle" src={this.state.profilePic} style={{ marginTop: 10 }} />
                             </Grid>
 
                             {/* User info section. */}

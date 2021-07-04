@@ -40,7 +40,7 @@ class Login extends Component {
         let usernameCorrect = "user";
         let passwordCorrect = "pass";
         if (this.state.username === usernameCorrect && this.state.password === passwordCorrect) {
-            sessionStorage.setItem('access-token', 'IGQVJYWE1PaE1SbUdDbEQ2UllfQlpKSzJJRHg4SXJjWnBKeUhxenhlZA0I3ZAl9pLTNmQ211bFVrX3lPR0FmNlQ1aFdHemZACWkZAuRVlKdG0yUlNiTVJCQXJzclBmTTRVb3NEbnR2QzNtbkRkMXFYNmNaTWl4TFJaSXZA2czhZA');
+            sessionStorage.setItem('access-token', 'IGQVJVelNEczhYVDNxZAzBpRDFadEhyTFFRVnlLZAmhSTU9Kb19kQ1EzeW1jTjUwTGtGQVJtQ0dmVV80WGw3TGx6VWoyZAlU2cWFzZA1diMVg5aTJyam90bGtfYUFtbzl3ZAEx2MkVrZAHVtM21pcXR3cVVOSEEtTlJpNlZAoS05v');
             console.log(sessionStorage.getItem('access-token'));
             ReactDOM.render(<Home baseUrl={this.props.baseUrl} />, document.getElementById('root'));
         }
