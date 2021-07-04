@@ -22,7 +22,7 @@ class Login extends Component {
             reqPassword: "dispNone",
             error: "dispNone",
             loginSucess: false,
-            loggedIn: sessionStorage.getItem("access_token") == null ? false : true,
+            loggedIn: sessionStorage.getItem("access-token") == null ? false : true,
         }
     }
 
@@ -40,8 +40,8 @@ class Login extends Component {
         let usernameCorrect = "user";
         let passwordCorrect ="pass";
         if(this.state.username === usernameCorrect && this.state.password === passwordCorrect){
-            sessionStorage.setItem('access_token', 'IGQVJWenQ2ZA1BpSk5BVm5jRmdXRnhyZAU9WRHI0eXE2dGtHTWJnV3d0ZAGtJN1VrWVJOZAkh3MEZAHazFHaDlXSGVvSEZAhcFk0UVdPcFN6RkdRNU5QOVl2SThRMS1mUVg4NGc1SGpqUDRFUE1fZAGktMGlYVHM2TFZATNzNlWGxJ');
-            console.log(sessionStorage.getItem('access_token'));
+            sessionStorage.setItem('access-token', 'IGQVJYWE1PaE1SbUdDbEQ2UllfQlpKSzJJRHg4SXJjWnBKeUhxenhlZA0I3ZAl9pLTNmQ211bFVrX3lPR0FmNlQ1aFdHemZACWkZAuRVlKdG0yUlNiTVJCQXJzclBmTTRVb3NEbnR2QzNtbkRkMXFYNmNaTWl4TFJaSXZA2czhZA');
+            console.log(sessionStorage.getItem('access-token'));
              ReactDOM.render(<Home baseUrl={this.props.baseUrl}/>, document.getElementById('root'));
     }
         else{

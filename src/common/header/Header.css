@@ -39,8 +39,10 @@
     float: left;
     color: #fff;
     font-weight: 18px;
-    vertical-align: middle;   
+    justify-content: center;
     padding-left: 8px;
+    text-decoration-line: none;
+    padding-top: 14px;
 }
 
 .iconBtn{
@@ -52,7 +54,27 @@
 }
 
 .profilePic {
-   width: 35px;
-   margin-right: 20px;
-   height: 35px;
-  }
+    width: 40px;
+    margin-right: 20px;
+    height: 40px;
+    margin-right: 0px;
+    margin-left: 0px;
+ }
+
+ .avatar {
+    margin-left: auto;
+    margin-right: 20px;
+    justify-content: center;
+    margin-bottom: 5px;
+   }
+
+.menuBar {
+    position: absolute;
+    background-color: grey;
+    color: black;
+    padding-top: 20px;
+}
+
+.menuList{
+    width: 200px;
+}

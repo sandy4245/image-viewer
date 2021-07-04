@@ -14,6 +14,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
+import * as moment from 'moment';
 
 const styles = theme => ({
     root: {
@@ -70,11 +71,13 @@ class Home extends Component{
         super();
         this.state = {
             profilePic: [],
-            loggedIn: sessionStorage.getItem("access_token") === "null" ? false : true,
+            loggedIn: sessionStorage.getItem("access-token") === "null" ? false : true,
             userImages: [],
             tags:["Upgrad","Fullstack"],
             comments:[],
             likes: [],
+            searchField: "",
+            filteredRes:[],
         }
     }
     UNSAFE_componentWillMount() {
@@ -83,7 +86,7 @@ class Home extends Component{
 
             let xhrEndPt1 = new XMLHttpRequest();
             let that = this;
-            let accessToken = "IGQVJWenQ2ZA1BpSk5BVm5jRmdXRnhyZAU9WRHI0eXE2dGtHTWJnV3d0ZAGtJN1VrWVJOZAkh3MEZAHazFHaDlXSGVvSEZAhcFk0UVdPcFN6RkdRNU5QOVl2SThRMS1mUVg4NGc1SGpqUDRFUE1fZAGktMGlYVHM2TFZATNzNlWGxJ"
+            let accessToken = sessionStorage.getItem("access-token");
             xhrEndPt1.addEventListener("readystatechange", function(){
                 if (this.readyState === 4){
                     console.log(JSON.parse(this.responseText));
@@ -102,13 +105,31 @@ class Home extends Component{
                 if (this.readyState === 4) {
                     console.log(JSON.parse(this.responseText).data);
                     that1.setState({userImages: JSON.parse(this.responseText).data});
+                    that1.setState({filteredRes:that1.state.userImages});
                     console.log(JSON.parse(this.responseText));
                     }   
             });
             xhrEndPt2.open("GET",this.props.baseUrl+"me/media?fields=id,caption,media_url,timestamp,username&access_token="+accessToken);
             xhrEndPt2.send(null);
         }
-
+        onSearchChange = e => {
+            this.setState({userImages:this.state.filteredRes});
+             const searchText = e.target.value.toLowerCase();
+           let userDetails = JSON.parse(
+             JSON.stringify(this.state.userImages)
+             );
+            let filterRes = [];
+        if (userDetails !== null && userDetails.length > 0){
+          filterRes = userDetails.filter( 
+            post => 
+            post.caption.toLowerCase()
+             .indexOf(searchText) > -1
+            );
+            this.setState({
+              userImages:[...filterRes],
+           });
+         }
+       };
         likeHandler = (index) => {
             let likedImages = this.state.likes;
             likedImages[index] = !likedImages[index];
@@ -130,6 +151,10 @@ class Home extends Component{
     
             this.setState({'comments': imageComments})
         }
+
+        myDate = (imgdate) => {
+            return moment(new Date(parseInt(imgdate))).format("DD/MM/YYYY HH:mm:ss");
+          }
      render() {
         const { classes } = this.props;
                return(
@@ -138,7 +163,9 @@ class Home extends Component{
                 baseUrl={this.props.baseUrl}
                 showSearchBox="true" 
                 profilePic={this.state.profilePic} 
-                loggedIn={this.state.loggedIn}/>
+                loggedIn={this.state.loggedIn}
+                showAccount="true"
+                searchChangeHandler={this.onSearchChange}/>
                <div>             
                 <GridList cols={2} cellHeight='auto'>
                     {this.state.userImages.map((img, index) =>(
@@ -146,8 +173,8 @@ class Home extends Component{
                             <CardHeader avatar={
                              <Avatar alt="profile-Pic" src={(this.state.profilePic).toString()} className={classes.avatar}/>
                             }    
-                             title={img.username}     
-                             subheader={<span>{new Date(img.timestamp).toDateString()}</span>}>
+                             title={img.username}  
+                             subheader = {this.myDate(img.timestamp)}>
                             </CardHeader>
                             <CardContent>
                             <GridListTile key={"userImg"+ img.caption} className="user-image-grid-item">
