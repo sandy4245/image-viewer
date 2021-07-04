@@ -38,9 +38,9 @@ class Login extends Component {
         this.state.username === "" ? this.setState({reqUsername: "dispBlock"}): this.setState({reqUsername:"dispNone"});
         this.state.password === "" ? this.setState({reqPassword: "dispBlock"}):this.setState({reqPassword:"dispNone"});
         let usernameCorrect = "user";
-        let passwordCorrect ="password";
+        let passwordCorrect ="pass";
         if(this.state.username === usernameCorrect && this.state.password === passwordCorrect){
-            sessionStorage.setItem('access_token', 'IGQVJWRGhqWXJyVjhiZAGhJNUtOSDRWY2ZABcDU2X2xFRXhPcnE3am83SXJ1c05sTV9XSkFtZAXpCYXoxTG5ZAY2J4blkwUFVUVlNLemg3LWdzaFNXWm5WbGo3R2VobUZALMUhLWl9RUnV3VDczVUU0ZAzlLbW5zYm56dVVmX1hJ');
+            sessionStorage.setItem('access_token', 'IGQVJWenQ2ZA1BpSk5BVm5jRmdXRnhyZAU9WRHI0eXE2dGtHTWJnV3d0ZAGtJN1VrWVJOZAkh3MEZAHazFHaDlXSGVvSEZAhcFk0UVdPcFN6RkdRNU5QOVl2SThRMS1mUVg4NGc1SGpqUDRFUE1fZAGktMGlYVHM2TFZATNzNlWGxJ');
             console.log(sessionStorage.getItem('access_token'));
              ReactDOM.render(<Home baseUrl={this.props.baseUrl}/>, document.getElementById('root'));
     }

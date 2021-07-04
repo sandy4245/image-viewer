@@ -14,7 +14,7 @@
     float: left;
     background-color: #c0c0c0;
     margin: 10px;
-    margin-left: 75%;
+    margin-left: 62%;
 }
 .app-logo{
     height: 30px;
@@ -46,7 +46,9 @@
 .iconBtn{
     float: right;
     width: 40px;
-
+    justify-content: center;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .profilePic {

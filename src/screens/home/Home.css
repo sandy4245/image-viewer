@@ -39,7 +39,7 @@
 .iconBtn{
     float: right;
     width: 100px;
-
+    justify-content: center;
 }
 
 /*   */
@@ -70,6 +70,7 @@
 
 .favIcon {
     float: left;
+    color: red;
 
 }
 
@@ -78,3 +79,17 @@
     margin-right: 385px;
     margin-top: 13px;
 } 
+
+.post-comment-container {
+    display: flex;
+}
+
+.post-comment-form-control {
+    width: 550px;
+}
+
+.add-button {
+    cursor: pointer;
+    margin-top: 0px;
+    margin-left: 10px;
+}

@@ -10,6 +10,10 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
     root: {
@@ -68,19 +72,18 @@ class Home extends Component{
             profilePic: [],
             loggedIn: sessionStorage.getItem("access_token") === "null" ? false : true,
             userImages: [],
-            createdTime: [],
-            username: [],
-            captionText:[],
-            captionTag:[],
-            favClick: false,
-            }
+            tags:["Upgrad","Fullstack"],
+            comments:[],
+            likes: [],
         }
+    }
     UNSAFE_componentWillMount() {
 
             //call to API Endpoint 2 to get profile-picture
 
             let xhrEndPt1 = new XMLHttpRequest();
             let that = this;
+            let accessToken = "IGQVJWenQ2ZA1BpSk5BVm5jRmdXRnhyZAU9WRHI0eXE2dGtHTWJnV3d0ZAGtJN1VrWVJOZAkh3MEZAHazFHaDlXSGVvSEZAhcFk0UVdPcFN6RkdRNU5QOVl2SThRMS1mUVg4NGc1SGpqUDRFUE1fZAGktMGlYVHM2TFZATNzNlWGxJ"
             xhrEndPt1.addEventListener("readystatechange", function(){
                 if (this.readyState === 4){
                     console.log(JSON.parse(this.responseText));
@@ -88,7 +91,7 @@ class Home extends Component{
                     that.setState({profilePic: JSON.parse(this.responseText).media_url});
                 }
             });
-           xhrEndPt1.open("GET", this.props.baseUrl+"17933678179575908?fields=id,media_type,media_url,username,timestamp&access_token=IGQVJWRGhqWXJyVjhiZAGhJNUtOSDRWY2ZABcDU2X2xFRXhPcnE3am83SXJ1c05sTV9XSkFtZAXpCYXoxTG5ZAY2J4blkwUFVUVlNLemg3LWdzaFNXWm5WbGo3R2VobUZALMUhLWl9RUnV3VDczVUU0ZAzlLbW5zYm56dVVmX1hJ");
+           xhrEndPt1.open("GET", this.props.baseUrl+"17933678179575908?fields=id,media_type,media_url,username,timestamp&access_token="+accessToken);
             xhrEndPt1.send(null);
 
             //call to API End point1
@@ -102,10 +105,31 @@ class Home extends Component{
                     console.log(JSON.parse(this.responseText));
                     }   
             });
-            xhrEndPt2.open("GET",this.props.baseUrl+"me/media?fields=id,caption,media_url,timestamp,username&access_token=IGQVJWRGhqWXJyVjhiZAGhJNUtOSDRWY2ZABcDU2X2xFRXhPcnE3am83SXJ1c05sTV9XSkFtZAXpCYXoxTG5ZAY2J4blkwUFVUVlNLemg3LWdzaFNXWm5WbGo3R2VobUZALMUhLWl9RUnV3VDczVUU0ZAzlLbW5zYm56dVVmX1hJ");
+            xhrEndPt2.open("GET",this.props.baseUrl+"me/media?fields=id,caption,media_url,timestamp,username&access_token="+accessToken);
             xhrEndPt2.send(null);
         }
 
+        likeHandler = (index) => {
+            let likedImages = this.state.likes;
+            likedImages[index] = !likedImages[index];
+            this.setState({'likes': likedImages})
+        }
+       commentHandler = (index) => {
+            var textField = document.getElementById("textfield-" + index);
+            if (textField.value == null || textField.value.trim() === "") {
+                return;
+            }
+            let imageComments = this.state.comments;
+            if (imageComments[index] === undefined) {
+                imageComments[index] = [textField.value];
+            } else {
+                imageComments[index] = imageComments[index].concat([textField.value]);
+            }
+    
+            textField.value = '';
+    
+            this.setState({'comments': imageComments})
+        }
      render() {
         const { classes } = this.props;
                return(
@@ -117,7 +141,7 @@ class Home extends Component{
                 loggedIn={this.state.loggedIn}/>
                <div>             
                 <GridList cols={2} cellHeight='auto'>
-                    {this.state.userImages.map(img =>(
+                    {this.state.userImages.map((img, index) =>(
                         <Card className={classes.card}  >
                             <CardHeader avatar={
                              <Avatar alt="profile-Pic" src={(this.state.profilePic).toString()} className={classes.avatar}/>
@@ -131,6 +155,36 @@ class Home extends Component{
                             </GridListTile>
                             <hr className={classes.hr}/>
                             <p className="captionText">{(img.caption)}</p>
+                            {this.state.tags.map(tag=>(
+                                 <span className="captionTag">{"#"+tag+""}</span>
+                            ))} <br/>
+                            {this.state.likes[index] ?
+                            <span className="favIcon"><FavoriteIcon className={classes.icon} onClick={() => this.likeHandler(index)}/></span>:
+                            <span><FavoriteBorderIcon className={classes.icon} onClick={() => this.likeHandler(index)}/></span>}
+                                <span className="like">&nbsp;{this.state.likes[index] ? 2 + ' likes' : 1 + ' likes'}</span>
+                                <br/><br/>
+                                <div id='comments-container'>
+                                                {
+                                                    this.state.comments[index] ?
+                                                        (this.state.comments)[index].map((comment, index) => (
+                                                            <p key={index}>
+                                                                <b>{img.username}</b> : {comment}
+                                                            </p>
+                                                        ))
+                                                        :
+                                                        <p></p>
+                                                }
+                                            </div>
+                                <div className='post-comment-container'>
+                                                <FormControl className='post-comment-form-control'>
+                                                    <Input type="text" id={'textfield-' + index} label="Add a comment" />
+                                                </FormControl>
+                                                <div className='add-button'>
+                                                    <FormControl>
+                                                       <Button variant='contained' color='primary' onClick={() => this.commentHandler(index)}>ADD</Button>
+                                                    </FormControl>
+                                                </div>
+                                            </div>
                             </CardContent>
                          </Card>
                     ))}
