@@ -1,0 +1,80 @@
+.flex-container {
+    display: flex;
+}
+
+.flex-container>div {
+    margin: 16px;
+}
+
+.user-image-grid-item {
+    margin: 15px;
+}
+
+.cardImg {
+    width: 50%;
+}
+
+.userImage{
+    min-width: 400px;
+    min-height: 400px;
+    scale: 100%;
+    margin-top: 0px;
+}
+
+/* Card common styles */
+
+.profilePic {
+    width: 50px;
+    padding: 0px;
+    height: 50px;
+    margin-left: 5px;
+   }
+
+.cardStyle {
+    width: 280px;
+    padding: 32px 64px 32px 64px;
+    margin: auto;
+    text-align: left;
+}
+.iconBtn{
+    float: right;
+    width: 100px;
+
+}
+
+/*   */
+
+.user-image-grid-item{
+    margin: 10px;
+    width: auto;
+    height: auto;
+    scale: 100%;
+}
+
+.captionText{
+    font-weight: bold;
+    text-align: justify;
+    margin-left: 10px;
+    margin-bottom: 0px;
+}
+
+.captionTag{
+    font-weight: bold;
+    text-align: justify;
+    margin-left: 10px;
+    color: lightblue;
+    margin-top: 0px;
+    padding: 0px;
+
+}
+
+.favIcon {
+    float: left;
+
+}
+
+.like{
+    float: right;
+    margin-right: 385px;
+    margin-top: 13px;
+} 

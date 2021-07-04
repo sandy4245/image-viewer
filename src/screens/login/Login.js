@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import './Login.css';
 import Header from '../../common/header/Header.js';
+import Home from '../../screens/home/Home.js';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -19,6 +20,9 @@ class Login extends Component {
             password:"",
             reqUsername: "dispNone",
             reqPassword: "dispNone",
+            error: "dispNone",
+            loginSucess: false,
+            loggedIn: sessionStorage.getItem("access_token") == null ? false : true,
         }
     }
 
@@ -33,15 +37,25 @@ class Login extends Component {
     loginButtonHandler = () => {
         this.state.username === "" ? this.setState({reqUsername: "dispBlock"}): this.setState({reqUsername:"dispNone"});
         this.state.password === "" ? this.setState({reqPassword: "dispBlock"}):this.setState({reqPassword:"dispNone"});
-
+        let usernameCorrect = "user";
+        let passwordCorrect ="password";
+        if(this.state.username === usernameCorrect && this.state.password === passwordCorrect){
+            sessionStorage.setItem('access_token', 'IGQVJWRGhqWXJyVjhiZAGhJNUtOSDRWY2ZABcDU2X2xFRXhPcnE3am83SXJ1c05sTV9XSkFtZAXpCYXoxTG5ZAY2J4blkwUFVUVlNLemg3LWdzaFNXWm5WbGo3R2VobUZALMUhLWl9RUnV3VDczVUU0ZAzlLbW5zYm56dVVmX1hJ');
+            console.log(sessionStorage.getItem('access_token'));
+             ReactDOM.render(<Home baseUrl={this.props.baseUrl}/>, document.getElementById('root'));
+    }
+        else{
+            if(this.state.username !== "" && this.state.password !== "")
+            this.setState({error: "dispBlock"});
+        }
     }
     render(){
         return(
             <div>
-                <Header/>
+                <Header baseUrl={this.props.baseUrl}/>
                 <Card className="cardStyle">
                     <CardContent>
-                        <Typography variant="headline" component="h2">
+                    <Typography variant="h4">
                                LOGIN
                         </Typography> <br/>
                         <FormControl required className="formControl"> 
@@ -55,7 +69,10 @@ class Login extends Component {
                              <Input id="password" type="password" password={this.state.password}
                              onChange={this.inputPasswordChangeHandler}/>
                         <FormHelperText className={this.state.reqPassword}><span className="red">required</span></FormHelperText>
-                         </FormControl> <br/><br/><br/>
+                        </FormControl> <br/><br/>
+                         <FormControl required className="formControl">
+                         <FormHelperText className={this.state.error}><span className="red">Incorrect username and/or password</span></FormHelperText>
+                         </FormControl><br/><br/>
                             <Button variant="contained" onClick={this.loginButtonHandler} color="primary">
                                 Login
                             </Button>

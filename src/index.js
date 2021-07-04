@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import 'typeface-roboto';
-import Login from './screens/login/Login';
+import Controller from './screens/Controller';
 
-ReactDOM.render(<Login />, document.getElementById('root'));
+ReactDOM.render(<Controller/>, document.getElementById('root'));

@@ -6,6 +6,35 @@
 }
 
 
+/* Styles added for Search box implemented */
+.searchBox {
+    height: 35px;
+    border-radius: 4px;
+    width: 300px;
+    float: left;
+    background-color: #c0c0c0;
+    margin: 10px;
+    margin-left: 75%;
+}
+.app-logo{
+    height: 30px;
+    padding: 5px;
+}
+
+.searchText{
+    padding-bottom: 0px;
+}
+
+.formControl {
+    width: 150px;
+    height: 30px;
+}
+.profilePic {
+    float: right;
+}
+/* Styles added for user profile icon implemented */
+
+
 .logo {
     float: left;
     color: #fff;
@@ -13,3 +42,15 @@
     vertical-align: middle;   
     padding-left: 8px;
 }
+
+.iconBtn{
+    float: right;
+    width: 40px;
+
+}
+
+.profilePic {
+   width: 35px;
+   margin-right: 20px;
+   height: 35px;
+  }
